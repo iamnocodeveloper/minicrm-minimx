@@ -1,26 +1,194 @@
 @import "tailwindcss";
 
+/* ============================================================
+   MiniCRM AI – Premium Dark Theme
+   Dark mode is the default. Purple primary, glassmorphism.
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background */
+  --background: 240 10% 4%;             /* deep graphite/black */
+  --background-elevated: 240 8% 8%;
+  --background-soft: 240 6% 11%;
+  --foreground: 240 12% 96%;            /* near-white */
+
+  /* Card / surfaces */
+  --card: 240 8% 8%;
+  --card-foreground: 240 12% 96%;
+  --popover: 240 8% 9%;
+  --popover-foreground: 240 12% 96%;
+
+  /* Brand — purple */
+  --primary: 265 90% 60%;               /* royal purple */
+  --primary-foreground: 0 0% 100%;
+  --accent: 280 95% 65%;                /* neon purple */
+  --accent-soft: 265 60% 22%;
+
+  /* Muted */
+  --muted: 240 6% 14%;
+  --muted-foreground: 240 6% 65%;
+
+  /* Status */
+  --success: 150 65% 45%;
+  --warning: 38 95% 55%;
+  --danger: 0 75% 60%;
+  --info: 200 90% 55%;
+
+  /* Lines / borders */
+  --border: 240 6% 18%;
+  --input: 240 6% 16%;
+  --ring: 265 90% 60%;
+
+  /* Chart palette */
+  --chart-1: 265 90% 60%;
+  --chart-2: 280 95% 65%;
+  --chart-3: 195 90% 55%;
+  --chart-4: 150 65% 50%;
+  --chart-5: 38 95% 60%;
+
+  --radius: 0.875rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-success: hsl(var(--success));
+  --color-warning: hsl(var(--warning));
+  --color-danger: hsl(var(--danger));
+  --color-info: hsl(var(--info));
+
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: hsl(var(--border));
+}
+
+html, body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* subtle radial purple glow */
+  background-image:
+    radial-gradient(1100px circle at 12% -10%, hsl(265 80% 30% / 0.18), transparent 60%),
+    radial-gradient(900px circle at 110% 110%, hsl(280 80% 30% / 0.12), transparent 55%);
+  background-attachment: fixed;
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: linear-gradient(180deg, hsl(var(--card) / 0.7), hsl(var(--background-soft) / 0.55));
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid hsl(var(--border));
+}
+
+.glass-soft {
+  background: hsl(var(--background-soft) / 0.55);
+  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--border));
+}
+
+/* Neon purple accent for headings / important elements */
+.neon-text {
+  color: hsl(var(--primary));
+  text-shadow: 0 0 18px hsl(var(--primary) / 0.35);
+}
+
+.neon-border {
+  border-color: hsl(var(--primary) / 0.5);
+  box-shadow: 0 0 0 1px hsl(var(--primary) / 0.15), 0 8px 30px -12px hsl(var(--primary) / 0.45);
+}
+
+/* Premium gradient text */
+.gradient-text {
+  background: linear-gradient(120deg, hsl(var(--primary)), hsl(var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: hsl(var(--muted)); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--accent-soft)); }
+
+/* Smooth focus rings */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px hsl(var(--background)), 0 0 0 4px hsl(var(--ring) / 0.6);
+  border-radius: 6px;
+}
+
+/* Disable focus visible on draggable kanban items to keep them clean */
+[data-dnd-kit-draggable]:focus-visible,
+button[data-no-focus]:focus-visible {
+  box-shadow: none;
+}
+
+/* Card hover micro-interaction */
+.card-hover {
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -16px hsl(var(--primary) / 0.55);
+  border-color: hsl(var(--primary) / 0.4);
+}
+
+/* Kanban column subtle separator */
+.kanban-col {
+  background: linear-gradient(180deg, hsl(var(--background-soft) / 0.6), hsl(var(--background) / 0.4));
+  border: 1px solid hsl(var(--border));
+  border-radius: 18px;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, hsl(var(--muted)) 0%, hsl(var(--background-soft)) 40%, hsl(var(--muted)) 80%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite linear;
+}
+
+/* Subtle entrance animation */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.25s ease-out both; }
+
+/* DnD outline only while dragging */
+[data-dragging="true"] {
+  cursor: grabbing;
+  box-shadow: 0 18px 40px -18px hsl(var(--primary) / 0.7);
 }
